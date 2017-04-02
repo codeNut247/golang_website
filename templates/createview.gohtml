@@ -2,10 +2,14 @@
 
 {{template "nav-main"}}
 
-<h1>{{.Title}}</h1>
-{{if .FirstName}}
-<p>Thanks {{.FirstName}} for applying!</p>
-{{end}}
+
+<div class="container body-content">
+	<h1>{{.Title}}</h1>
+	{{if .FirstName}}
+		<p>Thanks {{.FirstName}} for applying!</p>
+	{{end}}
+</div>
+
 <div class="container">
   <form class="" action="/apply" method="post">
     <div class="form-group">
