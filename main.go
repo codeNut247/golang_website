@@ -27,34 +27,28 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func index(w http.ResponseWriter, req *http.Request) {
-	pd := pageData{Title: "Index"}
+func sendView(w http.ResponseWriter, pd pageData) {
 	w.Header().Set("Content-Type", "text/html")
 	err := tpl.ExecuteTemplate(w, "templist.gohtml", pd)
 	if err != nil {
 		log.Println(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
+}
+
+func index(w http.ResponseWriter, req *http.Request) {
+	pd := pageData{Title: "Index"}
+	sendView(w, pd)
 }
 
 func about(w http.ResponseWriter, req *http.Request) {
 	pd := pageData{Title: "About"}
-	w.Header().Set("Content-Type", "text/html")
-	err := tpl.ExecuteTemplate(w, "templist.gohtml", pd)
-	if err != nil {
-		log.Println(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
+	sendView(w, pd)
 }
 
 func contact(w http.ResponseWriter, req *http.Request) {
 	pd := pageData{Title: "Contact"}
-	w.Header().Set("Content-Type", "text/html")
-	err := tpl.ExecuteTemplate(w, "templist.gohtml", pd)
-	if err != nil {
-		log.Println(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-	}
+	sendView(w, pd)
 }
 
 func apply(w http.ResponseWriter, req *http.Request) {
