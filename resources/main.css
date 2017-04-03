@@ -1,3 +1,9 @@
+
+div.custom-card {
+	border-radius: 5px;
+	padding: 1.5rem;
+}
+
 h1 {
   color: green;
 }
