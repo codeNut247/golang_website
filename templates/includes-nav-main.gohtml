@@ -1,20 +1,29 @@
 {{define "nav-main"}}
-<nav class="navbar navbar-inverse" >
-  <div class="container">
+<nav class="navbar navbar-inverse"> <!--style="background-color: #e3f2fd;">-->
+  <div class="container-fluid">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">-->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+        <a class="navbar-brand" href="/">App Name</a>
     </div>
-    <div class="collapse navbar-collapse">
+    <div id="navbar" class="collapse navbar-collapse" aria-expanded="false">
       <ui class="nav navbar-nav">
         <li class=""><a class="" href="/index">INDEX</a></li>
         <li class=""><a class="" href="/about">ABOUT</a></li>
         <li class=""><a class="" href="/contact">CONTACT</a></li>
         <li class=""><a class="" href="/apply">APPLY</a></li>
       </ui>
+      <ul class="nav navbar-nav navbar-right">
+        {{if .IsLogedIn}}
+          <li><a href="/profile">{{.UserName}}</a></li>
+        {{else}}
+          <li><a href="/signin">Sign Up</a></li>
+        {{end}}
+      </ul>
     </div>
   </div>
 </nav>

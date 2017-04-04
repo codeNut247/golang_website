@@ -2,6 +2,11 @@
 div.custom-card {
 	border-radius: 5px;
 	padding: 1.5rem;
+	width: 300px;
+	box-shadow: 2px 2px 1px #e8e8e8;
+	border-style: solid;
+	border-width: thin;
+	border-color: #e8e8e8;
 }
 
 h1 {
