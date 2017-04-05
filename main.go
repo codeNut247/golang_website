@@ -4,20 +4,14 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/codeNut247/golang_website/Models"
 )
 
 type pageData struct {
 	Title     string
 	FirstName string
-	User      user
-}
-
-type user struct {
-	UserName  string
-	Email     string
-	Password  string
-	Remember  bool
-	IsLogedIn bool
+	User      Models.User
 }
 
 var pd pageData
@@ -62,6 +56,19 @@ func signin(w http.ResponseWriter, req *http.Request) {
 		log.Println(pd.User)
 		log.Println(req.FormValue("remember"))
 	}
+	/*
+		pd.Title = "Sign Up"
+		if req.Method == http.MethodPost {
+			userForm := new(Models.User)
+			errs := binding.Bind(req, userForm)
+			if errs.Handle(w) {
+				return
+			}
+			pd.User.UserName = userForm.UserName
+			log.Println(userForm.Message)
+			log.Println(userForm.UserName)
+		}
+	*/
 	sendView(w, "signinCreate.gohtml", pd)
 }
 
