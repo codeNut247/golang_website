@@ -11,7 +11,7 @@ import (
 type pageData struct {
 	Title     string
 	FirstName string
-	User      Models.User
+	User      Models.UserModel
 }
 
 var pd pageData
