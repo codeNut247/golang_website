@@ -44,18 +44,19 @@ func sendView(w http.ResponseWriter, tempName string, pd pageData) {
 
 func signin(w http.ResponseWriter, req *http.Request) {
 	//pd = pageData{Title: "Sign Up"}
-	pd.Title = "Sign In"
-	if req.Method == http.MethodPost {
-		pd.User.UserName = req.FormValue("username")
-		pd.User.Email = req.FormValue("email")
-		pd.User.Password = req.FormValue("password")
-		if req.FormValue("remember") == "on" {
-			pd.User.Remember = true
-		}
-		pd.User.IsLogedIn = true
-		log.Println(pd.User)
-		log.Println(req.FormValue("remember"))
-	}
+	/*
+		pd.Title = "Sign In"
+		if req.Method == http.MethodPost {
+			pd.User.UserName = req.FormValue("username")
+			pd.User.Email = req.FormValue("email")
+			pd.User.Password = req.FormValue("password")
+			if req.FormValue("remember") == "on" {
+				pd.User.Remember = true
+			}
+			pd.User.IsLogedIn = true
+			log.Println(pd.User)
+			log.Println(req.FormValue("remember"))
+		}*/
 	/*
 		pd.Title = "Sign Up"
 		if req.Method == http.MethodPost {
@@ -69,6 +70,12 @@ func signin(w http.ResponseWriter, req *http.Request) {
 			log.Println(userForm.UserName)
 		}
 	*/
+	pd.Title = "Sign In"
+	if req.Method == http.MethodPost {
+		userData := Models.BindModel(req)
+		log.Println(userData)
+	}
+
 	sendView(w, "signinCreate.gohtml", pd)
 }
 

@@ -1,24 +1,43 @@
 package Models
 
-import binding "github.com/codeNut247/golang_website/DataBinding"
+import (
+	"log"
+	"net/http"
 
-type UserModel struct {
-	UserName  string
-	Email     string
-	Password  string
-	Message   string
-	Remember  bool
-	IsLogedIn bool
+	"github.com/codeNut247/golang_website/DataBinding"
+)
+
+type Authorization struct {
+	UserName string
+	Email    string
+	Password string
+	Remember string
 }
 
-func (um *UserModel) BindModel(m map[string]interface{}) error {
+func (am *Authorization) fillStruct(m map[string]interface{}) error {
 	for k, v := range m {
-		err := binding.SetField(um, k, v)
+		err := binding.SetField(am, k, v)
 		if err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func BindModel(req *http.Request) *Authorization {
+	formData := make(map[string]interface{})
+	formData["UserName"] = req.FormValue("username")
+	formData["Email"] = req.FormValue("email")
+	formData["Password"] = req.FormValue("password")
+	formData["Remember"] = req.FormValue("remember")
+
+	result := &Authorization{}
+	err := result.fillStruct(formData)
+	if err != nil {
+		log.Fatalln("Data could not be bound to Struct")
+	}
+
+	return result
 }
 
 /*
