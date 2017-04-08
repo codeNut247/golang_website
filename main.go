@@ -30,7 +30,7 @@ func main() {
 	http.HandleFunc("/signin", signin)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func sendView(w http.ResponseWriter, tempName string, pd pageData) {
