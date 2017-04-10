@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/codeNut247/golang_website/DataBinding"
+	"github.com/codeNut247/golang_website/01_example/DataBinding"
 )
 
 type Authorization struct {

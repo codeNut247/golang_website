@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/codeNut247/golang_website/Models"
+	"github.com/codeNut247/golang_website/01_example/Models"
 )
 
 type pageData struct {
