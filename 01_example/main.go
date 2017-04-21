@@ -14,6 +14,9 @@ type pageData struct {
 	User      Models.UserModel
 }
 
+type User struct {
+}
+
 var pd pageData
 
 var tpl *template.Template
@@ -74,6 +77,9 @@ func signin(w http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodPost {
 		userData := Models.BindModel(req)
 		log.Println(userData)
+		if userData.Password == "123" {
+			http.Redirect(w, req, "/", http.StatusTemporaryRedirect)
+		}
 	}
 
 	sendView(w, "signinCreate.gohtml", pd)
