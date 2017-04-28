@@ -9,6 +9,6 @@ type Movie struct {
 	Price    float32
 }
 
-func (m *Movie) SeedTestData() []Movie {
+//func (m *Movie) SeedTestData() []Movie {
 
-}
+//}
