@@ -1,0 +1,15 @@
+{
+  "Database": {
+    "Type": "Bolt",
+    "Bolt": {
+      "Path": "jsonapi.db"
+    },
+    "MongoDB": {
+      "URL": "127.0.0.1",
+      "Database": "jsonapi"
+    }
+  },
+  "Server": {
+    "HTTPPort": 8080
+  }
+}
