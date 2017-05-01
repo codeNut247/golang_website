@@ -13,8 +13,8 @@ type Server struct {
 	HTTPPort int    `json:"HTTPPort"`
 }
 
-// Starts http listener (later could start https as well)
-func run(handlers http.Handler, s Server) {
+// Run starts http listener (later could start https as well)
+func Run(handlers http.Handler, s Server) {
 	// TODO: httpStart(handler, server)
 	if s.HTTPPort != 0 {
 		fmt.Println(time.Now().Format("2006-01-02 03:04:05 PM"), "Running HTTP "+httpAddress(s))

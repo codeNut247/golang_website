@@ -2,6 +2,7 @@ package database
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"time"
 
@@ -43,7 +44,7 @@ const (
 
 // BoltDBInfo contains Path detail for database connection
 type BoltDBInfo struct {
-	Path string
+	Path string `json:"Path"`
 }
 
 // MongoDBInfo contains details for database connection
@@ -61,8 +62,9 @@ func Connect(dbInfo Info) {
 		// BoltDB is a global variable in package database
 		BoltDB, err = bolt.Open(dbInfo.BoltDB.Path, 0600, nil)
 		if err != nil {
-			log.Println("Bolt Driver Error - ", err)
+			log.Println("Bolt Driver Error - "+dbInfo.BoltDB.Path, err)
 		}
+		fmt.Println(dbInfo)
 	case TypeMongoDB:
 		// Connect to MongoDB
 		Mongo, err = mgo.DialWithTimeout(dbInfo.MongoDB.URL, 5*time.Second)

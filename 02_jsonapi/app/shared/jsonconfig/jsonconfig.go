@@ -9,7 +9,7 @@ import (
 
 // Parser as interface function
 type Parser interface {
-	ParseJson([]byte) error
+	ParseJSON([]byte) error
 }
 
 // Load the json config file into memory
@@ -30,7 +30,7 @@ func Load(configFilePath string, p Parser) {
 	}
 
 	// Parse json file
-	if err := p.ParseJson(jsonBytes); err != nil {
+	if err := p.ParseJSON(jsonBytes); err != nil {
 		log.Fatalln("Coult not parse %q: %v", configFilePath, err)
 	}
 }
