@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
 	"net/http"
 )
@@ -24,10 +25,12 @@ type User struct {
 }
 
 func main() {
+	port := flag.String("port", "8080", "an string")
+	flag.Parse()
+
 	http.HandleFunc("/", index)
-	handler := http.HandlerFunc(dog)
-	http.Handle("/api/dog", AuthWrapper(handler))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	http.Handle("/api/dog", AuthWrapper(http.HandlerFunc(dog)))
+	log.Fatal(http.ListenAndServe(":"+*port, nil))
 }
 
 // index tests simple api response
@@ -43,7 +46,8 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func dog(w http.ResponseWriter, r *http.Request) {
-
+	d := Dog{Name: "Pluto", Age: 50, Race: "Celestial Dwarf"}
+	json.NewEncoder(w).Encode(d)
 }
 
 func AuthWrapper(next http.Handler) http.Handler {
