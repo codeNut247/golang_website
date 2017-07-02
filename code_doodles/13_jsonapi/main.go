@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/codeNut247/golang_website/02_jsonapi/app/shared/session"
 	"github.com/codenut247/golang_website/02_jsonapi/app/shared/database"
 	"github.com/codenut247/golang_website/02_jsonapi/app/shared/jsonconfig"
 	"github.com/codenut247/golang_website/02_jsonapi/app/shared/server"
-	"github.com/verifiedninja/webapp/shared/session"
 )
 
 type configuration struct {

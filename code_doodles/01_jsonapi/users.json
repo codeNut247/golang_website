@@ -1,0 +1,37 @@
+{
+  "User": {
+    "AuthToken": "ac2498jACI3baW5c",
+    "Email": "tim@cloud.com",
+    "FirstName": "Tim",
+    "LastName": "Cloud",
+    "Pwd": "123456"
+  },
+  "User": {
+    "AuthToken": "v53iun3o§vni3öV",
+    "Email": "christoph@glob.com",
+    "FirstName": "Christoph",
+    "LastName": "Glob",
+    "Pwd": "123456"
+  },
+  "User": {
+    "AuthToken": "vi3ui§$Isuh5Q§Ijhf50j",
+    "Email": "richard@gauss.com",
+    "FirstName": "Richard",
+    "LastName": "Gauss",
+    "Pwd": "123456"
+  },
+  "User": {
+    "AuthToken": "3nuo6§Ni2dFD2SI1jsdk",
+    "Email": "lukas@puchler.com",
+    "FirstName": "Lukas",
+    "LastName": "Puchler",
+    "Pwd": "123456"
+  },
+  "User": {
+    "AuthToken": "6noi4GNi&ijs4loio4i",
+    "Email": "michael@protha.com",
+    "FirstName": "Michael",
+    "LastName": "Protha",
+    "Pwd": "123456"
+  }
+}
