@@ -106,7 +106,7 @@ func readhandler(conn net.Conn) {
 	scanner := bufio.NewScanner(conn)
 
 	for scanner.Scan() {
-		fmt.Println(conn.LocalAddr().String() + " " + scanner.Text())
+		fmt.Println(conn.RemoteAddr().Network() + " " + scanner.Text())
 	}
 	defer conn.Close()
 
