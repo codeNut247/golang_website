@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -26,6 +27,12 @@ type User struct {
 	Password  string `json:"pwd,omitempty"`
 }
 
+type Account struct {
+	Name     string `json:"name,omitempty"`
+	LastName string `json:"lastname,omitempty"`
+	Number   string `json:"number,omitempty"`
+}
+
 func main() {
 	port := flag.String("port", "8080", "an string")
 	flag.Parse()
@@ -37,10 +44,13 @@ func main() {
 
 // index tests simple api response
 func index(w http.ResponseWriter, r *http.Request) {
-	fruits := make(map[string]int)
+	fruits := make(map[string]string)
 
-	fruits["Apples"] = 2
-	fruits["Oranges"] = 10
+	fruits["Apples"] = "2"
+	fruits["Oranges"] = "1"
+	fruits["YourIP"] = r.RemoteAddr
+	fruits["AnotherIP"] = r.Header.Get("X-Forwarded-For")
+	fruits["LastIP"] = r.Header.Get("X-Real-Ip")
 
 	w.Header().Set("Content-Type", "application/json")
 
@@ -52,11 +62,23 @@ func dog(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(d)
 }
 
+func konto(w http.ResponseWriter, r *http.Request) {
+	konto := Account{Name: "Cthulu", LastName: "OldOne", Number: "AT2093024802"}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(konto)
+}
+
 func AuthWrapper(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Executing AuthWrapper logic before the Handler")
-		CheckAuth(r)
-		next.ServeHTTP(w, r)
+		state := CheckAuth(r)
+		fmt.Printf("Authenticated: %t\n", state)
+		if state {
+			next.ServeHTTP(w, r)
+		} else {
+			http.NotFound(w, r)
+		}
+
 		log.Println("Executing AuthWrapper logic after the Handler")
 	})
 }
@@ -65,10 +87,11 @@ func CheckAuth(r *http.Request) bool {
 	d := json.NewDecoder(r.Body)
 	var u User
 	err := d.Decode(&u)
-	if err != nil {
-		panic(err)
-	}
 	defer r.Body.Close()
+	if err != nil {
+		log.Println(err)
+		return false
+	}
 	// Get User From Database
 	// Checking Authentication Token
 	if u.AuthToken == UKey {

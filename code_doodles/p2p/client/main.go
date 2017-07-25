@@ -18,7 +18,7 @@ var (
 	localPort     int
 	targetPort    int
 
-	state bool
+	state chan bool
 
 	wg sync.WaitGroup
 )
@@ -32,12 +32,14 @@ func init() {
 
 	c = make(chan string)
 
-	state = true
+	state = make(chan bool)
+
 }
 
 func main() {
 	wg.Add(2)
 	// TODO: Channel should go here for "state" to be interuptable
+	state <- true
 	go tcplisten()
 	go controlPanel()
 	wg.Wait()
@@ -60,7 +62,7 @@ func controlPanel() {
 			if strings.Contains(fs[1], ":") {
 				strAddr = fs[1]
 			} else {
-				strAddr = fs[1] + string(targetPort)
+				strAddr = fs[1] + ":" + strconv.Itoa(targetPort)
 			}
 			conn, err := net.Dial("tcp", strAddr)
 			if err != nil {
@@ -74,6 +76,9 @@ func controlPanel() {
 		case ":Quit":
 			// TODO: Channel state to false in order to quit tcplisten loop and signal WaitGroup to Done()
 			wg.Done()
+			close(state)
+			close(c)
+			return
 		default:
 			c <- ln
 		}
@@ -88,7 +93,7 @@ func tcplisten() {
 	}
 	defer li.Close()
 
-	for state == true {
+	for <-state {
 		conn, err := li.Accept()
 		if err != nil {
 			log.Fatalln(err)
@@ -100,6 +105,7 @@ func tcplisten() {
 	}
 
 	wg.Done()
+	fmt.Println("Tcp Listener is turned off...")
 }
 
 func readhandler(conn net.Conn) {
@@ -114,11 +120,11 @@ func readhandler(conn net.Conn) {
 }
 
 func writehandler(conn net.Conn) {
+	defer conn.Close()
 
-	for state == true {
+	for _ = range c {
 		fmt.Fprintf(conn, "%s\n", <-c)
 	}
-	defer conn.Close()
 
 	log.Println("writehandler closed")
 }

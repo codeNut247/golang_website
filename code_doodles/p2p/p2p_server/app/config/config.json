@@ -1,0 +1,27 @@
+{
+  "Database": {
+    "Type": "Bolt",
+    "BoltDB": {
+      "Path": "jsonapi.db"
+    },
+    "MongoDB": {
+      "URL": "127.0.0.1",
+      "Database": "jsonapi"
+    }
+  },
+  "Server": {
+    "Hostname": "localhost",
+    "HTTPPort": 8080
+  },
+  "Session": {
+    "SecretKey": "@åaosdi=vravasAGRP!%$&HD=SADFo09403f)GJJJSADPF",
+    "Name": "blurbstreet",
+    "Options": {
+      "Path": "/",
+      "Domain": "",
+      "MaxAge": 28800,
+      "Secure": false,
+      "HttpOnly": true
+    }
+  }
+}
