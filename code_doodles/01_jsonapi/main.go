@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
+	jsonloader "github.com/codeNut247/golang_website/code_doodles/01_jsonapi/app/jsonloader.go"
 )
 
 const (
 	// UKey represents a unique identification key
-	UKey = "oa4i§&2P1OJN%§5I%P"
+	UKey = "dripler"
 )
 
 type Dog struct {
@@ -27,14 +29,30 @@ type User struct {
 	Password  string `json:"pwd,omitempty"`
 }
 
+<<<<<<< HEAD
 type Account struct {
 	Name     string `json:"name,omitempty"`
 	LastName string `json:"lastname,omitempty"`
 	Number   string `json:"number,omitempty"`
+=======
+type LocalContext struct {
+	userSlice []User
+}
+
+var LocalDB LocalContext
+
+func (lc *LocalContext) ParseJson(b []byte) error {
+	return json.Unmarshal(b, &lc)
+}
+
+func init() {
+	jsonloader.Load("users.json", LocalDB)
+>>>>>>> f3b359a11d2fb078fcd54998d5b9de627c97e767
 }
 
 func main() {
-	port := flag.String("port", "8080", "an string")
+	fmt.Println(LocalDB)
+	port := flag.String("port", "8080", "a string")
 	flag.Parse()
 
 	http.HandleFunc("/", index)
@@ -71,6 +89,7 @@ func konto(w http.ResponseWriter, r *http.Request) {
 func AuthWrapper(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Executing AuthWrapper logic before the Handler")
+<<<<<<< HEAD
 		state := CheckAuth(r)
 		fmt.Printf("Authenticated: %t\n", state)
 		if state {
@@ -79,6 +98,17 @@ func AuthWrapper(next http.Handler) http.Handler {
 			http.NotFound(w, r)
 		}
 
+=======
+
+		if CheckAuth(r) {
+			log.Println("Authorized")
+		} else {
+			log.Println("Not Authorized")
+		}
+
+		next.ServeHTTP(w, r)
+
+>>>>>>> f3b359a11d2fb078fcd54998d5b9de627c97e767
 		log.Println("Executing AuthWrapper logic after the Handler")
 	})
 }
