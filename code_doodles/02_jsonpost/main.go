@@ -6,7 +6,9 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -44,6 +46,29 @@ func PostMeth(URL string, SendStruct interface{}) {
 	}
 
 	io.Copy(os.Stdout, res.Body)
+}
+
+func PostMeth2(URL string, SendStruct interface{}) {
+	resp, err := http.PostForm(URL, url.Values(SendStruct))
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer resp.Body.Close()
+
+}
+
+func (au *ApiUser) FillMap(out map[string]interface{}) {
+	if out == nil {
+		return
+	}
+
+	fields := au.structFields()
+
+	for _, field := range fields {
+		name := field.Name
+		val := au.value.FieldByName(name)
+
+	}
 }
 
 // func RequestMeth(URL string, SendStruct interface{}) {

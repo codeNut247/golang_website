@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/codenut247/golang_website/code_doodles/p2p_server/app/shared/database"
-	"github.com/codenut247/golang_website/code_doodles/p2p_server/app/shared/jsonconfig"
-	"github.com/codenut247/golang_website/code_doodles/p2p_server/app/shared/server"
+	"github.com/codenut247/golang_website/code_doodles/p2p/p2p_server/app/shared/database"
+	"github.com/codenut247/golang_website/code_doodles/p2p/p2p_server/app/shared/jsonconfig"
+	"github.com/codenut247/golang_website/code_doodles/p2p/p2p_server/app/shared/server"
 	"github.com/verifiedninja/webapp/shared/session"
 )
 
